@@ -6,4 +6,4 @@ export function Header() {
             <button>Cerca</button>
         </header>
     )
-}
+};

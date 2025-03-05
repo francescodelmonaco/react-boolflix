@@ -7,19 +7,19 @@ const apiUrl = import.meta.env.VITE_BASE_API_URL;
 const GlobalContext = createContext();
 const GlobalProvider = ({ children }) => {
     // lista film
-    const [filmsList, setFilmsList] = useState({});
+    const [filmsList, setFilmsList] = useState([]);
 
     const getFilms = () => {
         axios.get(apiUrl)
-            .then((res) => setFilmsList(res.data))
+            .then((res) => setFilmsList(res.data.results))
     };
 
     // lista serie tv
-    const [seriesList, setSeriesList] = useState({});
+    const [seriesList, setSeriesList] = useState([]);
 
     const getSeries = () => {
         axios.get(apiUrl)
-            .then((res) => setSeriesList(res.data))
+            .then((res) => setSeriesList(res.data.results))
     };
 
     // destructuring
