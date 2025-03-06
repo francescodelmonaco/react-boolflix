@@ -25,7 +25,7 @@ export function Main() {
                                         <h3>Titolo: {title}</h3>
                                         <h3>Titolo originale: {original_title}</h3>
                                         <span>Lingua: {original_language}</span>
-                                        <span>Voto: {vote_average}</span>
+                                        <span>Voto: {parseInt(Math.ceil(vote_average / 2))}</span>
                                     </div>
                                 )
                             })
@@ -39,18 +39,18 @@ export function Main() {
             <div className="main-container">
                 <h2>Serie TV</h2>
 
-                <div>
+                <div className="cards-container">
                     {
                         seriesList ? (
                             seriesList.map((serie) => {
                                 const { id, name, original_name, original_language, vote_average } = serie;
 
                                 return (
-                                    <div key={id}>
+                                    <div key={id} className="film-card">
                                         <h3>Titolo: {name}</h3>
                                         <h3>Titolo originale: {original_name}</h3>
                                         <span>Lingua: {original_language}</span>
-                                        <span>Voto: {vote_average}</span>
+                                        <span>Voto: {parseInt(Math.ceil(vote_average / 2))}</span>
                                     </div>
                                 )
                             })
