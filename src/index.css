@@ -81,10 +81,34 @@ main {
   flex-basis: calc(100% / 3 - 2rem);
   border: 1px solid var(--color-white);
   padding: 0.5rem;
-  height: 350px;
+  height: 100%;
 
   /* contenuto card */
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  position: relative;
+}
+
+.poster {
+  width: 100%;
+  cursor: pointer;
+}
+
+.info {
+  position: absolute;
+  padding: 0 0.5rem;
+  padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  display: none;
+}
+
+.film-card:hover .info {
+  display: flex
+}
+
+.film-card:hover .poster {
+  filter: brightness(10%);
 }

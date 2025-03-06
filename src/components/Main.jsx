@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 import { useGlobalContext } from "../contexts/GlobalContext";
+import '/node_modules/flag-icon-css/css/flag-icons.min.css';
+
+const posterUrl = "https://image.tmdb.org/t/p/w342/";
 
 export function Main() {
     const { filmsList, getFilms, seriesList, getSeries, query } = useGlobalContext();
@@ -18,14 +21,19 @@ export function Main() {
                     {
                         filmsList ? (
                             filmsList.map((film) => {
-                                const { id, title, original_title, original_language, vote_average } = film;
+                                const { id, title, original_title, original_language, vote_average, poster_path } = film;
 
                                 return (
                                     <div key={id} className="film-card">
-                                        <h3>Titolo: {title}</h3>
-                                        <h3>Titolo originale: {original_title}</h3>
-                                        <span>Lingua: {original_language}</span>
-                                        <span>Voto: {parseInt(Math.ceil(vote_average / 2))}</span>
+                                        <figure>
+                                            <img className="poster" src={`${posterUrl}${poster_path}`} alt={`Poster del film ${title}`} />
+                                        </figure>
+                                        <div className="info">
+                                            <span><strong>Titolo: </strong>{title}</span>
+                                            <span><strong>Titolo originale: </strong>{original_title}</span>
+                                            <span className={`flag-icon flag-icon-${original_language}`} style={{ fontSize: '25px' }}></span>
+                                            <span>Voto: {parseInt(Math.ceil(vote_average / 2))}</span>
+                                        </div>
                                     </div>
                                 )
                             })
@@ -49,7 +57,7 @@ export function Main() {
                                     <div key={id} className="film-card">
                                         <h3>Titolo: {name}</h3>
                                         <h3>Titolo originale: {original_name}</h3>
-                                        <span>Lingua: {original_language}</span>
+                                        <span className={`flag-icon flag-icon-${original_language}`} style={{ fontSize: '25px' }}></span>
                                         <span>Voto: {parseInt(Math.ceil(vote_average / 2))}</span>
                                     </div>
                                 )
