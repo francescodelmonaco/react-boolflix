@@ -29,6 +29,20 @@ export function Main() {
                             filmsList.map((film) => {
                                 const { id, title, original_title, original_language, vote_average, poster_path, overview } = film;
 
+                                // flags
+                                const flags = (language) => {
+                                    if (language === "en") {
+                                        return "gb";
+                                    } else if (language === "ja") {
+                                        return "jp";
+                                    } else if (language === "ko") {
+                                        return "kr"
+                                    } else {
+                                        return language;
+                                    }
+                                };
+
+                                // stars
                                 const vote = () => {
                                     const rating = parseInt(Math.ceil(vote_average / 2));
                                     const stars = [];
@@ -41,7 +55,7 @@ export function Main() {
                                                 <FaRegStar key={i} />
                                             )
                                         )
-                                    };
+                                    }
 
                                     return stars
                                 };
@@ -54,9 +68,8 @@ export function Main() {
                                         <div className="info">
                                             <span><strong>Titolo: </strong>{title}</span>
                                             <span><strong>Titolo originale: </strong>{original_title}</span>
-                                            <span className={`flag-icon flag-icon-${original_language}`} style={{ fontSize: '25px' }}></span>
-                                            <span><strong>Voto: </strong></span>
-                                            <p>{vote(vote_average)}</p>
+                                            <span className={`flag-icon flag-icon-${flags(original_language)}`} style={{ fontSize: '25px' }}></span>
+                                            <span><strong>Voto: </strong>{vote(vote_average)}</span>
                                             <p><strong>Overview: </strong>{overview}</p>
                                         </div>
                                     </div>
@@ -78,6 +91,37 @@ export function Main() {
                             seriesList.map((serie) => {
                                 const { id, name, original_name, original_language, vote_average, poster_path, overview } = serie;
 
+                                // flags
+                                const flags = (language) => {
+                                    if (language === "en") {
+                                        return "gb";
+                                    } else if (language === "ja") {
+                                        return "jp";
+                                    } else if (language === "ko") {
+                                        return "kr"
+                                    } else {
+                                        return language;
+                                    }
+                                };
+
+                                // stars
+                                const vote = () => {
+                                    const rating = parseInt(Math.ceil(vote_average / 2));
+                                    const stars = [];
+
+                                    for (let i = 1; i <= 5; i++) {
+                                        stars.push(
+                                            i <= rating ? (
+                                                <FaStar key={i} />
+                                            ) : (
+                                                <FaRegStar key={i} />
+                                            )
+                                        )
+                                    }
+
+                                    return stars
+                                };
+
                                 return (
                                     <div key={id} className="film-card">
                                         <figure>
@@ -86,8 +130,9 @@ export function Main() {
                                         <div className="info">
                                             <span><strong>Titolo: </strong>{name}</span>
                                             <span><strong>Titolo originale: </strong>{original_name}</span>
-                                            <span className={`flag-icon flag-icon-${original_language}`} style={{ fontSize: '25px' }}></span>
-                                            <span>Voto: {parseInt(Math.ceil(vote_average / 2))}</span>
+                                            <span className={`flag-icon flag-icon-${flags(original_language)}`} style={{ fontSize: '25px' }}></span>
+                                            <span><strong>Voto: </strong>{vote(vote_average)}</span>
+                                            <p><strong>Overview: </strong>{overview}</p>
                                         </div>
                                     </div>
                                 )
