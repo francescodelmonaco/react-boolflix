@@ -1,8 +1,14 @@
 import { useEffect } from "react";
 import { useGlobalContext } from "../contexts/GlobalContext";
+
+// flags
 import '/node_modules/flag-icon-css/css/flag-icons.min.css';
 
-const posterUrl = "https://image.tmdb.org/t/p/w342/";
+// icons
+import { FaStar, FaRegStar } from "react-icons/fa6";
+
+// posters
+const postersUrl = import.meta.env.VITE_API_POSTER_URL;
 
 export function Main() {
     const { filmsList, getFilms, seriesList, getSeries, query } = useGlobalContext();
@@ -19,20 +25,39 @@ export function Main() {
 
                 <div className="cards-container">
                     {
-                        filmsList ? (
+                        filmsList && filmsList.length > 0 ? (
                             filmsList.map((film) => {
-                                const { id, title, original_title, original_language, vote_average, poster_path } = film;
+                                const { id, title, original_title, original_language, vote_average, poster_path, overview } = film;
+
+                                const vote = () => {
+                                    const rating = parseInt(Math.ceil(vote_average / 2));
+                                    const stars = [];
+
+                                    for (let i = 1; i <= 5; i++) {
+                                        stars.push(
+                                            i <= rating ? (
+                                                <FaStar key={i} />
+                                            ) : (
+                                                <FaRegStar key={i} />
+                                            )
+                                        )
+                                    };
+
+                                    return stars
+                                };
 
                                 return (
                                     <div key={id} className="film-card">
                                         <figure>
-                                            <img className="poster" src={`${posterUrl}${poster_path}`} alt={`Poster del film ${title}`} />
+                                            <img className="poster" src={`${postersUrl}${poster_path}`} alt={`Poster del film ${title}`} />
                                         </figure>
                                         <div className="info">
                                             <span><strong>Titolo: </strong>{title}</span>
                                             <span><strong>Titolo originale: </strong>{original_title}</span>
                                             <span className={`flag-icon flag-icon-${original_language}`} style={{ fontSize: '25px' }}></span>
-                                            <span>Voto: {parseInt(Math.ceil(vote_average / 2))}</span>
+                                            <span><strong>Voto: </strong></span>
+                                            <p>{vote(vote_average)}</p>
+                                            <p><strong>Overview: </strong>{overview}</p>
                                         </div>
                                     </div>
                                 )
@@ -49,16 +74,21 @@ export function Main() {
 
                 <div className="cards-container">
                     {
-                        seriesList ? (
+                        seriesList && seriesList.length > 0 ? (
                             seriesList.map((serie) => {
-                                const { id, name, original_name, original_language, vote_average } = serie;
+                                const { id, name, original_name, original_language, vote_average, poster_path, overview } = serie;
 
                                 return (
                                     <div key={id} className="film-card">
-                                        <h3>Titolo: {name}</h3>
-                                        <h3>Titolo originale: {original_name}</h3>
-                                        <span className={`flag-icon flag-icon-${original_language}`} style={{ fontSize: '25px' }}></span>
-                                        <span>Voto: {parseInt(Math.ceil(vote_average / 2))}</span>
+                                        <figure>
+                                            <img className="poster" src={`${postersUrl}${poster_path}`} alt={`Poster del film ${name}`} />
+                                        </figure>
+                                        <div className="info">
+                                            <span><strong>Titolo: </strong>{name}</span>
+                                            <span><strong>Titolo originale: </strong>{original_name}</span>
+                                            <span className={`flag-icon flag-icon-${original_language}`} style={{ fontSize: '25px' }}></span>
+                                            <span>Voto: {parseInt(Math.ceil(vote_average / 2))}</span>
+                                        </div>
                                     </div>
                                 )
                             })

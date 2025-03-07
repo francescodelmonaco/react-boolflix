@@ -81,13 +81,15 @@ main {
   flex-basis: calc(100% / 3 - 2rem);
   border: 1px solid var(--color-white);
   padding: 0.5rem;
-  height: 100%;
 
   /* contenuto card */
   display: flex;
   flex-direction: column;
   gap: 1rem;
   position: relative;
+
+  /* overflow */
+  overflow: hidden;
 }
 
 .poster {
